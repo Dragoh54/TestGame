@@ -1,4 +1,4 @@
-<h1> TestGame </h1>
-<h1 color="Blue" align="center"> Information </h1> 
-<ul>Assets folder</ul>
-<ul>Only for Unity 2021.3.9f1</ul>
+<h1 align="center"> TestGame </h1>
+<h1 color="blue" align="center"> Information </h1> 
+<ol>Assets folder</0l>
+<ol>Only for Unity 2021.3.9f1</ol>

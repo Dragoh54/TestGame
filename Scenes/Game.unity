@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 438173169}
   - component: {fileID: 438173171}
   - component: {fileID: 438173170}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -777,7 +777,7 @@ GameObject:
   - component: {fileID: 1304316298}
   - component: {fileID: 1304316300}
   - component: {fileID: 1304316299}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -998,6 +998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinPrefab: {fileID: 7815025232867757933, guid: 03fe22f5a2aced946a1813496e506d0a, type: 3}
+  numberOfCoins: 13
   minX: -9
   minY: -4
   maxX: 9
@@ -1215,7 +1216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1579642076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1254,7 +1255,7 @@ GameObject:
   - component: {fileID: 1581682538}
   - component: {fileID: 1581682540}
   - component: {fileID: 1581682539}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1537,7 +1538,7 @@ GameObject:
   - component: {fileID: 1936114971}
   - component: {fileID: 1936114973}
   - component: {fileID: 1936114972}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

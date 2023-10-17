@@ -1,4 +1,6 @@
+using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HealthSystems
 {
@@ -7,10 +9,13 @@ namespace HealthSystems
         public float maxHealth;
         private float _hp;
 
+        public bool isAlive;
+
         public RectTransform healthBar;
         void Start()
         {
             _hp = maxHealth;
+            isAlive = true;
         }
 
         public void TakeDamage(float amount)
@@ -19,7 +24,8 @@ namespace HealthSystems
             if (_hp <= 0)
             {
                 _hp = 0;
-                Debug.Log("Died");
+                isAlive = false;
+                PhotonNetwork.Destroy(gameObject);
             }
 
             healthBar.sizeDelta = new Vector2(_hp, healthBar.sizeDelta.y);

@@ -42,15 +42,16 @@ namespace Projectile
 
         private void FixedUpdate()
         {
-            RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.up, layerMask);
+            RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.up,0.1f, layerMask);
+            Debug.Log("Hit object: " + hitInfo.collider.gameObject.name);
             if (hitInfo.collider != null)
             {
                 Health enemyHp = hitInfo.collider.transform.GetComponent<Health>();
                 if (enemyHp != null)
                 {
-                    Destroy(gameObject);
                     enemyHp.TakeDamage(damage);
                 }
+                PhotonNetwork.Destroy(gameObject);
             }
         }
     }

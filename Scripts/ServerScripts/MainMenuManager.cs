@@ -29,11 +29,9 @@ namespace MainMenu
 
         public void CreateRoom()
         {
-            RoomOptions roomOptions = new RoomOptions
-            {
-                MaxPlayers = 4
-            };
-            
+            //без верхней границы по игрокам
+            RoomOptions roomOptions = new RoomOptions();
+
             PhotonNetwork.CreateRoom(createRoom.GetComponent<TMP_InputField>().text, roomOptions);
         }
 

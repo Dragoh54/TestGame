@@ -22,18 +22,22 @@ namespace Coin
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.CompareTag("Coin"))
+            if (other.gameObject.CompareTag("Coin") && _view.IsMine)
             {
                 PhotonNetwork.Destroy(other.gameObject);
                 _coinCounter++;
-                _view.RPC("UpdateCoinCount", RpcTarget.AllBuffered, _coinCounter);
+                _text.GetComponent<TMP_Text>().text = _coinCounter.ToString();
             }
         }
-        
-        [PunRPC]
-        void UpdateCoinCount(int newCount)
+
+        public int GetCoins()
         {
-            _coinCounter = newCount;
+            return _coinCounter;
+        }
+
+        public void AddCoin()
+        {
+            _coinCounter++;
         }
     }
 }

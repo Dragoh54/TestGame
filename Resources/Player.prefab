@@ -341,6 +341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  isAlive: 0
   healthBar: {fileID: 2670384765397302311}
 --- !u!114 &4101668989252736462
 MonoBehaviour:

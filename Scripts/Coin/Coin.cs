@@ -1,20 +1,43 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+﻿using Photon.Pun;
 using UnityEngine;
-using Photon.Pun;
 
 namespace Coin
 {
-    public class Coin : MonoBehaviour
+    public class Coin : MonoBehaviourPun, IPunObservable
     {
-        private void OnCollisionEnter2D(Collision2D other)
+        private bool _isCollected = false;
+
+        void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.tag.Equals("Player"))
+            if (other.gameObject.CompareTag("Player") && !_isCollected)
             {
-                CoinCounter.Counter++;
-                Destroy(gameObject);
+                _isCollected = true;
+                Collect();
+            }
+        }
+
+        void Collect()
+        {
+            CoinCollector coinCollector = new CoinCollector();
+            coinCollector.AddCoin();
+            photonView.RPC("CollectCoinRPC", RpcTarget.AllBuffered);
+        }
+
+        [PunRPC]
+        void CollectCoinRPC()
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.IsWriting)
+            {
+                stream.SendNext(_isCollected);
+            }
+            else
+            {
+                _isCollected = (bool)stream.ReceiveNext();
             }
         }
     }

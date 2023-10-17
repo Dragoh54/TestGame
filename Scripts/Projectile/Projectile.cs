@@ -9,25 +9,30 @@ namespace Projectile
     public class Projectile : MonoBehaviour
     {
         public float speed;
+        public float damage;
         public float prLife;        //how much our projectile live
-        
         private float _prCount;     //how much time projectile have
-        private Rigidbody2D _rb;
-        private Vector3 _moveVector;
-        
-        private Joystick _joystick;
-        
+
+        public LayerMask layerMask;
+
+        private PhotonView _view;
+        private SpriteRenderer _spriteRenderer;
+
         void Start()
         {
             _prCount = prLife;
-            _rb = GetComponent<Rigidbody2D>();
-            _joystick = GameObject.FindWithTag("Joystick").GetComponent<Joystick>();
-            _moveVector = Vector3.up * _joystick.Vertical - Vector3.left * _joystick.Horizontal;
-            _moveVector.Normalize();
+            _view = GetComponentInParent<PhotonView>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            if (!_view.IsMine)
+            {
+                _spriteRenderer.color = Color.red; 
+            }
         }
 
         void Update()
         {
+            transform.Translate(Vector2.up * (speed * Time.deltaTime));
+
             _prCount -= Time.deltaTime;
             if (_prCount <= 0)
             {
@@ -37,19 +42,16 @@ namespace Projectile
 
         private void FixedUpdate()
         {
-            _rb.velocity = new Vector2(_moveVector.x * speed, _moveVector.y * speed);
-        }
-
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            GameObject hit = other.gameObject;
-            Health health = hit.GetComponent<Health>();
-            if (health != null)
+            RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, transform.up, layerMask);
+            if (hitInfo.collider != null)
             {
-                health.TakeDamage(1);
+                Health enemyHp = hitInfo.collider.transform.GetComponent<Health>();
+                if (enemyHp != null)
+                {
+                    Destroy(gameObject);
+                    enemyHp.TakeDamage(damage);
+                }
             }
-            
-            Destroy(gameObject);
         }
     }
 }

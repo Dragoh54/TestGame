@@ -39,9 +39,9 @@ namespace Player
                 {
                     transform.rotation = Quaternion.LookRotation(Vector3.forward, moveVector);
                 }
-
                 _rb.velocity = new Vector2(x, y);
             }
         }
     }
 }
+

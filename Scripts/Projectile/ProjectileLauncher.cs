@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using HealthSystems;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -12,10 +13,9 @@ namespace Projectile
     public class ProjectileLauncher : MonoBehaviour
     {
         public GameObject projectilePrefab;
-        
         private Joystick _joystick;
 
-        public float shootTime; //time between projectiles
+        public float shootTime;      //time between projectiles
         private float _shootCounter; //how much time left before shoot
         
         private PhotonView _view;
@@ -27,7 +27,7 @@ namespace Projectile
             _view = GetComponent<PhotonView>();
         }
 
-        void Update()
+        void FixedUpdate()
         {
             var x = _joystick.Horizontal;
             var y = _joystick.Vertical;
@@ -35,7 +35,7 @@ namespace Projectile
             {
                 if (_shootCounter <= 0 && (x != 0 || y != 0))
                 {
-                    Instantiate(projectilePrefab, transform.position, transform.parent.rotation);
+                    PhotonNetwork.Instantiate(projectilePrefab.name, transform.position, transform.parent.rotation);
                     _shootCounter = shootTime;
                 }
                 _shootCounter -= Time.deltaTime;
